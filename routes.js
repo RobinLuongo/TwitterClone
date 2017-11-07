@@ -2,19 +2,30 @@ const express = require('express');
 const chalk = require('chalk');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Working');
-  console.log(chalk.green(req.method) + ' /');
-});
+// router.get('/', (req, res) => {
+//   res.send('Working');
+//   console.log(chalk.green(req.method) + ' /');
+// });
 
-router.use('/:route', (req, res) => {
+router.use('/special', (req, res, next) => {
+  console.log(chalk.green(`you've reached the special area`));
+  next();
+})
+
+router.use(['/:route', '/'], (req, res) => {
+  let output = ''
   if (req.method === 'POST') {
-    console.log(chalk.red('POST') + ' /' + req.params.route);
+    output = chalk.red('POST') + ' /' + req.params.route;
   } else if (req.method === 'GET') {
-    console.log(chalk.green('GET') + ' /' + req.params.route);
+    if (req.params.route === undefined) {
+      output = chalk.green('GET') + ' /';
+    } else {
+      output = chalk.green('GET') + ' /' + req.params.route;
+    }
   } else {
-    console.log(chalk.blue(req.method) + ' /' + req.params.route);
+    output = chalk.blue(req.method) + ' /' + req.params.route;
   }
+  console.log(output);
 });
 
 module.exports = router;
