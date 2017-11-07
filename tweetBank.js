@@ -34,8 +34,8 @@ for (let i = 0; i < 10; i++) {
   module.exports.add( getFakeName(), getFakeTweet() );
 }
 
-add('Robin', 'Allen is a great partner!');
+// add('Robin', 'Allen is a great partner!');
 
-let dataClone = list(data);
+// let dataClone = list(data);
 
-console.log(find({name: 'Robin'}));
+// console.log(find({name: 'Robin'}));

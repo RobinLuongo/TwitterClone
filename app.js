@@ -1,7 +1,7 @@
 const express = require('express');
-// const routes = require('./routes');
 const nunjucks = require('nunjucks');
 const chalk = require('chalk');
+const routes = require('./routes');
 const app = express();
 const PORT  = 3000;
 
@@ -10,22 +10,15 @@ app.engine('html', nunjucks.render); // when giving html files to res.render, te
 nunjucks.configure('views',
                   { noCache: true }); // point nunjucks to the proper directory for templates
 
-const obj = {
-    title: 'myTitle',
-    people: [{name: 'Allen'}, {name: 'Robin'}, {name: 'Vanessa'}, {name: 'Max'}, {name: 'Cassio'} ]
-};
+// const obj = {
+//     title: 'myTitle',
+//     people: [{name: 'Allen'}, {name: 'Robin'}, {name: 'Vanessa'}, {name: 'Max'}, {name: 'Cassio'} ]
+// };
 
-// nunjucks.render('index.html', obj, (err, res) => {
-//   if (err) {
-//     throw err;
-//   }
-//   // console.log(res);
+// app.use('/special', (req, res, next) => {
+//   console.log(chalk.green(`you've reached the special area`));
+//   next();
 // });
-
-app.use('/special', (req, res, next) => {
-  console.log(chalk.green(`you've reached the special area`));
-  next();
-});
 
 app.use(['/:route', '/'], (req, res, next) => {
   let output = '';
@@ -44,13 +37,8 @@ app.use(['/:route', '/'], (req, res, next) => {
   next();
 });
 
+app.use('/', routes);
+
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });
-
-app.get('/', (req, res) => {
-  // console.log('got there');
-  res.render('index.html', obj);
-});
-
-// app.use(routes);
