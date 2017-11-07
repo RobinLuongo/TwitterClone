@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/RobinLuongo/TwitterClone#readme",
   "dependencies": {
+    "chalk": "^2.3.0",
     "express": "^4.16.2"
   }
 }
