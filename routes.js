@@ -1,11 +1,16 @@
 const express = require('express');
 const chalk = require('chalk');
+const nunjucks = require('nunjucks')
 const router = express.Router();
 
 // router.get('/', (req, res) => {
 //   res.send('Working');
 //   console.log(chalk.green(req.method) + ' /');
 // });
+
+nunjucks.configure('./views', {
+  express: router
+});
 
 router.use('/special', (req, res, next) => {
   console.log(chalk.green(`you've reached the special area`));
@@ -26,6 +31,12 @@ router.use(['/:route', '/'], (req, res) => {
     output = chalk.blue(req.method) + ' /' + req.params.route;
   }
   console.log(output);
+  const title = "myTitle";
+  const people = [{name: 'Allen'}, {name: 'asdf'}, {name: 'Vanessa'}, {name: 'Max'}, {name: 'Cassio'} ];
+  res.render('index.html')
+  nunjucks.render('index.html', function(err, res) {
+    if (err) throw err;
+  });
 });
 
 module.exports = router;
