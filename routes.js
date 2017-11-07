@@ -8,10 +8,6 @@ const router = express.Router();
 //   console.log(chalk.green(req.method) + ' /');
 // });
 
-nunjucks.configure('./views', {
-  express: router
-});
-
 router.use('/special', (req, res, next) => {
   console.log(chalk.green(`you've reached the special area`));
   next();
